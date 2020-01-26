@@ -2655,7 +2655,7 @@ The extra HTTP headers will be sent with every request the page initiates.
 - returns: <[Promise]>
 
 Activating request interception enables `request.abort`, `request.continue` and
-`request.respond` methods.  This provides the capability to modify network requests that are made by a page.
+`request.fulfill` methods.  This provides the capability to modify network requests that are made by a page.
 
 Once request interception is enabled, every request will stall unless it's continued, responded or aborted.
 An example of a naïve request interceptor that aborts all image requests:
@@ -3057,7 +3057,7 @@ An example of fulfilling all requests with 404 responses:
 ```js
 await page.setRequestInterception(true);
 page.on('request', request => {
-  request.respond({
+  request.fulfill({
     status: 404,
     contentType: 'text/plain',
     body: 'Not Found!'
@@ -3066,7 +3066,7 @@ page.on('request', request => {
 ```
 
 > **NOTE** Mocking responses for dataURL requests is not supported.
-> Calling `request.respond` for a dataURL request is a noop.
+> Calling `request.fulfill` for a dataURL request is a noop.
 
 #### request.headers()
 - returns: <[Object]> An object with HTTP headers associated with the request. All header names are lower-case.
