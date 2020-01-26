@@ -3057,7 +3057,7 @@ An example of fulfilling all requests with 404 responses:
 ```js
 await page.setRequestInterception(true);
 page.on('request', request => {
-  request.respond({
+  request.fulfill({
     status: 404,
     contentType: 'text/plain',
     body: 'Not Found!'
